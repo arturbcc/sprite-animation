@@ -1,6 +1,17 @@
-.captain-america {
+.captain-america-2 {
   width: 210px;
   height: 200px;
   background-image: url('../images/captain-america-2.png');
   background-position: 0 -295px;
+  margin-right: 15px;
+  float: left;
+}
+
+.captain-america-3 {
+  width: 210px;
+  height: 200px;
+  background-image: url('../images/captain-america-3.png');
+  background-position: 630px -295px;
+  margin-right: 15px;
+  float: left;
 }
