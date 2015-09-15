@@ -2,7 +2,7 @@
   width: 210px;
   height: 200px;
   background-image: url('../images/captain-america-2.png');
-  background-position: 0 -295px;
+  background-position: 0 -200px;
   margin-right: 15px;
   float: left;
 }
@@ -11,7 +11,7 @@
   width: 210px;
   height: 200px;
   background-image: url('../images/captain-america-3.png');
-  background-position: 630px -295px;
+  background-position: -630px -200px;
   margin-right: 15px;
   float: left;
 }
