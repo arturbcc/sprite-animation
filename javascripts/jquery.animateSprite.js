@@ -151,7 +151,7 @@
             var $this = $(this),
                 data  = $this.data('animateSprite');
 
-            // always st'op animation to prevent overlapping intervals
+            // always stop animation to prevent overlapping intervals
             $this.animateSprite('stopAnimation');
             data.controlTimer();
         });

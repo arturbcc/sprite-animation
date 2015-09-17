@@ -2,53 +2,58 @@ var $ = window.jQuery;
 
 var CaptainAmerica = function(root, options) {
   this.root = $(root);
+  this.currentMotion = null;
 
   this.settings = $.extend({
     fps: 12,
     columns: 4,
     width: 210,
     height: 200,
-    animations: {
-      //punch: [0, 1, 2, 3, 2, 1, 0]
-    },
     loop: false,
-    autoplay: false,
-    //currentFrame: 0,
-    complete: function() {
-      //console.log('animation End');
-      this.root.animateSprite('restart');
-    }
+    autoplay: false
   }, options);
+
+  this.settings.complete = this.completeAnimation.bind(this);
+
+  $(this.root).animateSprite(this.settings);
 
   return this;
 };
 
 var fn = CaptainAmerica.prototype;
 
-fn.start = function() {
-  $(this.root).animateSprite(this.settings);
+fn.completeAnimation = function() {
+  this.currentMotion = null;
+};
+
+fn.call = function(motion) {
+  if (this.currentMotion != motion) {
+    this.currentMotion = motion;
+    $(this.root).animateSprite('restart').animateSprite('play', motion);
+  }
+
   return this;
 };
 
 fn.punch = function() {
-  $(this.root).animateSprite('play', 'punch');
-  return this;
+  return this.call('punch');
 };
 
-var captainAmerica2;
-var captainAmerica3;
+var leftChar;
+var rightChar;
+
 $(document).ready(function() {
-  captainAmerica2 = new CaptainAmerica('.captain-america-2', {
+  leftChar = new CaptainAmerica('.captain-america-2', {
     animations: {
       punch: [0, 1, 2, 3, 2, 1, 0]
     }
-  }).start();
+  });
 
-  captainAmerica3 = new CaptainAmerica('.captain-america-3', {
+  rightChar = new CaptainAmerica('.captain-america-3', {
     animations: {
       punch: [3, 2, 1, 0, 1, 2, 3]
     }
-  }).start();
+  });
 
   var currentKey;          //records the current key pressed
   var TimerWalk;          //timer handle
@@ -63,8 +68,8 @@ $(document).ready(function() {
       //execute character movement function charWalk('direction')
       console.log(e.keyCode);
       switch(e.keyCode) {
-        case 85: captainAmerica2.punch(); break; //u
-        case 69: captainAmerica3.punch(); break; //e
+        case 85: rightChar.punch(); break; //u
+        case 69: leftChar.punch(); break; //e
       //   case 38: charWalk('up');    break;
       //   case 39: charWalk('right'); break;
       //   case 40: charWalk('down');  break;
